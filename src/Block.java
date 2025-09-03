@@ -1,22 +1,31 @@
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Block{
+public class Block {
     public String hash;
     public String previousHash;
-    private String data;
+    private ArrayList<Transaction> transactions = new ArrayList<>();
     private long timeStamp;
     private int nonce;
 
-    public Block(String data, String previousHash) {
-        this.data = data;
+    public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
     }
 
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
     public String calculateHash() {
-        String input = previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + data;
+        StringBuilder transactionData = new StringBuilder();
+        for (Transaction t : transactions) {
+            transactionData.append(t.toString());
+        }
+
+        String input = previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + transactionData;
         return applySha256(input);
     }
 
@@ -46,4 +55,7 @@ public class Block{
         }
     }
 
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
 }

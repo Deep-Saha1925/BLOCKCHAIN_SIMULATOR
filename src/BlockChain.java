@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class BlockChain {
-    public static ArrayList<Block> blockchain = new ArrayList<Block>();
-    public static int difficulty = 5;
+public class BlockChain{
+    public static ArrayList<Block> blockchain = new ArrayList<>();
+    public static int difficulty = 4;
 
     public static void addBlock(Block newBlock){
         newBlock.mineBlock(difficulty);

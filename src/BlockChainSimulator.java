@@ -3,16 +3,22 @@ import com.google.gson.GsonBuilder;
 
 public class BlockChainSimulator {
     public static void main(String[] args) {
-        BlockChain.blockchain.add(new Block("Genesis Block", "0"));
+        // Genesis Block
+        Block genesisBlock = new Block("0");
+        genesisBlock.addTransaction(new Transaction("System", "Alice", 50));
+        BlockChain.addBlock(genesisBlock);
 
         System.out.println("Mining block 1...");
-        BlockChain.addBlock(new Block("First transaction", BlockChain.blockchain.get(BlockChain.blockchain.size() - 1).hash));
+        Block block1 = new Block(BlockChain.blockchain.get(BlockChain.blockchain.size()-1).hash);
+        block1.addTransaction(new Transaction("Alice", "Bob", 10));
+        block1.addTransaction(new Transaction("Bob", "Charlie", 5));
+        BlockChain.addBlock(block1);
 
         System.out.println("Mining block 2...");
-        BlockChain.addBlock(new Block("Second transaction", BlockChain.blockchain.get(BlockChain.blockchain.size() - 1).hash));
-
-        System.out.println("Mining block 3...");
-        BlockChain.addBlock(new Block("Third transaction", BlockChain.blockchain.get(BlockChain.blockchain.size() - 1).hash));
+        Block block2 = new Block(BlockChain.blockchain.get(BlockChain.blockchain.size()-1).hash);
+        block2.addTransaction(new Transaction("Charlie", "Alice", 2));
+        block2.addTransaction(new Transaction("Alice", "David", 20));
+        BlockChain.addBlock(block2);
 
         // Print blockchain as JSON
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
