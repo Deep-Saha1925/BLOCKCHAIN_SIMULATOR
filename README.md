@@ -1,4 +1,4 @@
-# 🪙 Blockchain Simulator (Java)
+# Blockchain Simulator (Java)
 
 ## 📌 Overview
 This project is a **menu-driven blockchain simulator** built in Java.  
